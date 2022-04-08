@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>垃圾发电</title>
+    <link rel="stylesheet" href="./libs/pannellum.min.css" />
+    <script type="text/javascript" src="./libs/pannellum.min.js"></script>
+    <style>
+      #panorama {
+        width: 100vw;
+        height: 100vh;
+      }
+
+      .hotspot {
+        height: 50px;
+        width: 50px;
+        background: url("./assets/bubble2.png") no-repeat;
+        background-color: rgba(0, 0, 0, 0.8);
+        background-size: 100% 100%;
+        border-radius: 50%;
+        cursor: pointer;
+        transition-property: backgroundColor, width, height;
+        transition-duration: 0.3s;
+      }
+
+      #bubble2 {
+        background-image: url("./assets/bubble3.png");
+      }
+      #bubble3 {
+        background-image: url("./assets/bubble3.png");
+      }
+      #bubble4 {
+        background-image: url("./assets/bubble3.png");
+      }
+      #bubble5 {
+        background-image: url("./assets/bubble4.png");
+      }
+
+      div.tooltip span {
+        visibility: hidden;
+        position: absolute;
+        border-radius: 3px;
+        background-color: #fff;
+        color: #000;
+        text-align: center;
+        max-width: 200px;
+        padding: 5px 10px;
+        margin-left: -220px;
+        cursor: default;
+      }
+
+      div.tooltip:hover span {
+        visibility: visible;
+      }
+
+      div.tooltip:hover span:after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-width: 10px;
+        border-style: solid;
+        border-color: #fff transparent transparent transparent;
+        bottom: -20px;
+        left: -10px;
+        margin: 0 50%;
+      }
+
+      #dialog {
+        /* border: 1px solid #dad8d8; */
+        border: none;
+        border-radius: 5px;
+        padding: 0;
+        background-color: rgba(0, 0, 0, 0.8);
+        position: fixed;
+        z-index: 10;
+        /* padding: 30px; */
+        display: none;
+      }
+
+      #dialog img {
+        width: 600px;
+      }
+
+      #dialog .close {
+        width: 20px;
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        cursor: pointer;
+      }
+
+      dialog::backdrop {
+        display: none;
+        background: transparent;
+      }
+    </style>
+  </head>
+
+  <body ondragstart="return false">
+    <div id="panorama"></div>
+
+    <div id="dialog" mark="false" style="left: 500px; top: 200px">
+      <img class="close" onclick="closeDialog()" src="./assets/close-dia.svg" alt="" />
+      <img class="content-img" src="./assets/xieliao-warn.png" alt="" />
+    </div>
+
+    <script src="./public/libs/Vue.js"></script>
+    <script>
+      let num = 0;
+      const hotspot = (hotSpotDom, args) => {
+        num++;
+        const data = args;
+
+        hotSpotDom.classList.add(data.cssClass);
+        hotSpotDom.id = data.id;
+        hotSpotDom.setAttribute("data-url", data.imgUrl);
+        hotSpotDom.setAttribute("data-scale", "scale");
+        if (num === 5) {
+          setIconScale();
+        }
+      };
+
+      pannellum.viewer("panorama", {
+        type: "equirectangular",
+        panorama: "./assets/360.png",
+        autoLoad: true,
+        autoRotate: 0, // 为0停止自动旋转
+        stopAutoRotate: true,
+        hotSpots: [
+          {
+            pitch: 12,
+            yaw: 38,
+            cssClass: "hotspot",
+            createTooltipFunc: hotspot,
+            createTooltipArgs: {
+              id: "bubble1",
+              title: "卸料口",
+              cssClass: "tooltip",
+              imgUrl: "./assets/xieliao-warn.png",
+            },
+          },
+          {
+            pitch: 9,
+            yaw: 94,
+            cssClass: "hotspot",
+            createTooltipFunc: hotspot,
+            createTooltipArgs: {
+              id: "bubble2",
+              title: "安全警示",
+              cssClass: "tooltip",
+              imgUrl: "./assets/ydqt-warn.png",
+            },
+          },
+          {
+            pitch: 11,
+            yaw: 274,
+            cssClass: "hotspot",
+            createTooltipFunc: hotspot,
+            createTooltipArgs: {
+              id: "bubble3",
+              title: "墙",
+              cssClass: "tooltip",
+              imgUrl: "./assets/ydqt-warn.png",
+            },
+          },
+          {
+            pitch: 6,
+            yaw: 320,
+            cssClass: "hotspot",
+            createTooltipFunc: hotspot,
+            createTooltipArgs: {
+              id: "bubble4",
+              title: "维修车间",
+              cssClass: "tooltip",
+              imgUrl: "./assets/ljdz-warn.png",
+            },
+          },
+          {
+            pitch: 16,
+            yaw: 383,
+            cssClass: "hotspot",
+            createTooltipFunc: hotspot,
+            createTooltipArgs: {
+              id: "bubble5",
+              title: "卸料门",
+              cssClass: "tooltip",
+              imgUrl: "./assets/xlmzh-warn.png",
+            },
+          },
+        ],
+      });
+
+      function setIconScale() {
+        const hotSpotDoms = document.getElementsByClassName("hotspot");
+        Array.from(hotSpotDoms).forEach((item, index) => {
+          setInterval(() => {
+            let flag = item.getAttribute("data-flag");
+            if (flag === "scale") {
+              item.style.width = "50px";
+              item.style.height = "50px";
+              item.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
+              hotSpotDoms[index].setAttribute("data-flag", "");
+            } else {
+              item.style.width = "55px";
+              item.style.height = "55px";
+              item.style.backgroundColor = "rgba(0, 0, 0, 0.2)";
+              hotSpotDoms[index].setAttribute("data-flag", "scale");
+            }
+          }, 1000);
+        });
+      }
+
+      const dialogEl = document.getElementById("dialog");
+      document.getElementById("panorama").addEventListener("click", function (e) {
+        const target = e.target;
+        dialogEl.style.left = "500px";
+        dialogEl.style.top = "200px";
+        console.log(target);
+        if (Array.from(target.classList).indexOf("hotspot") !== -1) {
+          dialogEl.style.display = "block";
+          const imgUrl = target.getAttribute("data-url");
+          const imgEl = dialogEl.getElementsByClassName("content-img")[0];
+          imgEl.setAttribute("src", imgUrl);
+        }
+      });
+
+      // 关闭弹窗
+      function closeDialog() {
+        dialogEl.style.display = "none";
+      }
+
+      // 弹窗拖拽
+      let disX, disY;
+      dialogEl.onmousedown = function (e) {
+        disX = e.pageX - parseInt(dialogEl.style.left);
+        disY = e.pageY - parseInt(dialogEl.style.top);
+
+        document.onmousemove = function (e) {
+          dialogEl.style.left = e.pageX - disX + "px";
+          dialogEl.style.top = e.pageY - disY + "px";
+        };
+
+        document.onmouseup = function (e) {
+          document.onmousemove = null;
+        };
+      };
+    </script>
+  </body>
+</html>
