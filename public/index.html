@@ -4,109 +4,95 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>垃圾发电</title>
+    <link rel="stylesheet" href="./index.css" />
     <link rel="stylesheet" href="./libs/pannellum.min.css" />
     <script type="text/javascript" src="./libs/pannellum.min.js"></script>
-    <style>
-      #panorama {
-        width: 100vw;
-        height: 100vh;
-      }
-
-      .hotspot {
-        height: 50px;
-        width: 50px;
-        background: url("./assets/bubble2.png") no-repeat;
-        background-color: rgba(0, 0, 0, 0.8);
-        background-size: 100% 100%;
-        border-radius: 50%;
-        cursor: pointer;
-        transition-property: backgroundColor, width, height;
-        transition-duration: 0.3s;
-      }
-
-      #bubble2 {
-        background-image: url("./assets/bubble3.png");
-      }
-      #bubble3 {
-        background-image: url("./assets/bubble3.png");
-      }
-      #bubble4 {
-        background-image: url("./assets/bubble3.png");
-      }
-      #bubble5 {
-        background-image: url("./assets/bubble4.png");
-      }
-
-      div.tooltip span {
-        visibility: hidden;
-        position: absolute;
-        border-radius: 3px;
-        background-color: #fff;
-        color: #000;
-        text-align: center;
-        max-width: 200px;
-        padding: 5px 10px;
-        margin-left: -220px;
-        cursor: default;
-      }
-
-      div.tooltip:hover span {
-        visibility: visible;
-      }
-
-      div.tooltip:hover span:after {
-        content: "";
-        position: absolute;
-        width: 0;
-        height: 0;
-        border-width: 10px;
-        border-style: solid;
-        border-color: #fff transparent transparent transparent;
-        bottom: -20px;
-        left: -10px;
-        margin: 0 50%;
-      }
-
-      #dialog {
-        /* border: 1px solid #dad8d8; */
-        border: none;
-        border-radius: 5px;
-        padding: 0;
-        background-color: rgba(0, 0, 0, 0.8);
-        position: fixed;
-        z-index: 10;
-        /* padding: 30px; */
-        display: none;
-      }
-
-      #dialog img {
-        width: 600px;
-      }
-
-      #dialog .close {
-        width: 20px;
-        position: absolute;
-        right: 20px;
-        top: 20px;
-        cursor: pointer;
-      }
-
-      dialog::backdrop {
-        display: none;
-        background: transparent;
-      }
-    </style>
+    <style></style>
   </head>
 
   <body ondragstart="return false">
     <div id="panorama"></div>
 
-    <div id="dialog" mark="false" style="left: 500px; top: 200px">
-      <img class="close" onclick="closeDialog()" src="./assets/close-dia.svg" alt="" />
-      <img class="content-img" src="./assets/xieliao-warn.png" alt="" />
+    <div class="navs">
+      <div class="nav left active">
+        卸料大厅
+        <ul class="items">
+          <li class="item">坑圾坑 <img class="warn-img" src="./assets/warn2.png" alt="" /></li>
+          <li class="item">垃圾吊抓斗 <img class="warn-img" src="./assets/warn2.png" alt="" /></li>
+          <li class="item">垃圾运输车 <img class="warn-img" src="./assets/warn2.png" alt="" /></li>
+          <li class="item">进出卷帘门 <img class="warn-img" src="./assets/warn2.png" alt="" /></li>
+          <li class="item">卸料大厅 <img class="warn-img" src="./assets/warn2.png" alt="" /></li>
+          <li class="item">卸料门 <img class="warn-img" src="./assets/warn2.png" alt="" /></li>
+        </ul>
+        <img class="arrow-img" src="./assets/arrow_down.png" alt="" />
+      </div>
     </div>
 
-    <script src="./public/libs/Vue.js"></script>
+    <div id="dialog">
+      <img class="close" onclick="closeDialog()" src="./assets/close.png" alt="" />
+      <!-- <img class="content-img" src="./assets/xieliao-warn.png" alt="" /> -->
+      <div class="content">
+        <div class="item warn-images">
+          <h3 class="title">告示牌(12张)</h3>
+          <div class="list">
+            <ul>
+              <li class="list-item"><img src="./assets/warn3.png" alt="" /> 这是一个告示牌</li>
+              <li class="list-item"><img src="./assets/warn3.png" alt="" /> 这是一个告示牌</li>
+              <li class="list-item"><img src="./assets/warn3.png" alt="" /> 这是一个告示牌</li>
+              <li class="list-item"><img src="./assets/warn3.png" alt="" /> 这是一个告示牌</li>
+              <li class="list-item"><img src="./assets/warn3.png" alt="" /> 这是一个告示牌</li>
+              <li class="list-item"><img src="./assets/warn3.png" alt="" /> 这是一个告示牌</li>
+              <li class="list-item"><img src="./assets/warn3.png" alt="" /> 这是一个告示牌</li>
+              <li class="list-item"><img src="./assets/warn3.png" alt="" /> 这是一个告示牌</li>
+              <li class="list-item"><img src="./assets/warn3.png" alt="" /> 这是一个告示牌</li>
+              <li class="list-item"><img src="./assets/warn3.png" alt="" /> 这是一个告示牌</li>
+              <li class="list-item"><img src="./assets/warn3.png" alt="" /> 这是一个告示牌</li>
+              <li class="list-item"><img src="./assets/warn3.png" alt="" /> 这是一个告示牌</li>
+              <li class="list-item"><img src="./assets/warn3.png" alt="" /> 这是一个告示牌</li>
+              <li class="list-item"><img src="./assets/warn3.png" alt="" /> 这是一个告示牌</li>
+            </ul>
+          </div>
+        </div>
+        <div class="item videos">
+          <h3 class="title">安全事故(38件)</h3>
+          <div class="list">
+            <ul>
+              <li class="list-item">
+                <video src="./assets/video.mp4"></video>
+              </li>
+              <li class="list-item">
+                <video src="./assets/video.mp4"></video>
+              </li>
+              <li class="list-item">
+                <video src="./assets/video.mp4"></video>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="item files">
+          <h3 class="title">案例文件(8份)</h3>
+          <div class="list">
+            <ul>
+              <li class="list-item"><img src="./assets/pdf-icon.png" alt="" /> 这是一份案例文件</li>
+              <li class="list-item"><img src="./assets/pdf-icon.png" alt="" /> 这是一份案例文件</li>
+              <li class="list-item"><img src="./assets/pdf-icon.png" alt="" /> 这是一份案例文件</li>
+              <li class="list-item"><img src="./assets/pdf-icon.png" alt="" /> 这是一份案例文件</li>
+              <li class="list-item"><img src="./assets/pdf-icon.png" alt="" /> 这是一份案例文件</li>
+              <li class="list-item"><img src="./assets/pdf-icon.png" alt="" /> 这是一份案例文件</li>
+              <li class="list-item"><img src="./assets/pdf-icon.png" alt="" /> 这是一份案例文件</li>
+              <li class="list-item"><img src="./assets/pdf-icon.png" alt="" /> 这是一份案例文件</li>
+              <li class="list-item"><img src="./assets/pdf-icon.png" alt="" /> 这是一份案例文件</li>
+              <li class="list-item"><img src="./assets/pdf-icon.png" alt="" /> 这是一份案例文件</li>
+              <li class="list-item"><img src="./assets/pdf-icon.png" alt="" /> 这是一份案例文件</li>
+              <li class="list-item"><img src="./assets/pdf-icon.png" alt="" /> 这是一份案例文件</li>
+              <li class="list-item"><img src="./assets/pdf-icon.png" alt="" /> 这是一份案例文件</li>
+              <li class="list-item"><img src="./assets/pdf-icon.png" alt="" /> 这是一份案例文件</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script>
       let num = 0;
       const hotspot = (hotSpotDom, args) => {
@@ -215,8 +201,8 @@
       const dialogEl = document.getElementById("dialog");
       document.getElementById("panorama").addEventListener("click", function (e) {
         const target = e.target;
-        dialogEl.style.left = "500px";
-        dialogEl.style.top = "200px";
+        // dialogEl.style.left = "500px";
+        // dialogEl.style.top = "200px";
         console.log(target);
         if (Array.from(target.classList).indexOf("hotspot") !== -1) {
           dialogEl.style.display = "block";
@@ -231,21 +217,60 @@
         dialogEl.style.display = "none";
       }
 
+      const navsEl = document.getElementsByClassName("navs")[0];
+      const navItemEl = navsEl.getElementsByClassName("nav")[0];
+      const menuItemEls = navsEl.getElementsByClassName("item");
+      let flag = true;
+      navItemEl.addEventListener("click", function () {
+        const imgEl = this.getElementsByClassName("arrow-img")[0];
+        if (flag) {
+          imgEl.setAttribute("src", "./assets/arrow_up.png");
+          this.style.backgroundImage = 'url("./assets/menu_active.png")';
+          const menuEL = this.getElementsByClassName("items")[0];
+          menuEL.style.display = "block";
+          flag = false;
+        } else {
+          imgEl.setAttribute("src", "./assets/arrow_down.png");
+          this.style.backgroundImage = 'url("./assets/menu_item.png")';
+          const menuEL = this.getElementsByClassName("items")[0];
+          menuEL.style.display = "none";
+          flag = true;
+        }
+      });
+
+      Array.from(menuItemEls).forEach((item, index) => {
+        const imgEl = item.getElementsByClassName("warn-img")[0];
+        item.addEventListener("click", function (e) {
+          e.stopPropagation();
+          // dialogEl.style.display = "none";
+        });
+        item.addEventListener("mouseenter", function (e) {
+          if (imgEl) {
+            imgEl.setAttribute("src", "./assets/warn1.png");
+          }
+        });
+        item.addEventListener("mouseleave", function (e) {
+          if (imgEl) {
+            imgEl.setAttribute("src", "./assets/warn2.png");
+          }
+        });
+      });
+
       // 弹窗拖拽
-      let disX, disY;
-      dialogEl.onmousedown = function (e) {
-        disX = e.pageX - parseInt(dialogEl.style.left);
-        disY = e.pageY - parseInt(dialogEl.style.top);
+      // let disX, disY;
+      // dialogEl.onmousedown = function (e) {
+      //   disX = e.pageX - parseInt(dialogEl.style.left);
+      //   disY = e.pageY - parseInt(dialogEl.style.top);
 
-        document.onmousemove = function (e) {
-          dialogEl.style.left = e.pageX - disX + "px";
-          dialogEl.style.top = e.pageY - disY + "px";
-        };
+      //   document.onmousemove = function (e) {
+      //     dialogEl.style.left = e.pageX - disX + "px";
+      //     dialogEl.style.top = e.pageY - disY + "px";
+      //   };
 
-        document.onmouseup = function (e) {
-          document.onmousemove = null;
-        };
-      };
+      //   document.onmouseup = function (e) {
+      //     document.onmousemove = null;
+      //   };
+      // };
     </script>
   </body>
 </html>
