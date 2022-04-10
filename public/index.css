@@ -53,9 +53,9 @@ ul {
   background-color: rgba(0, 0, 0, 0.8);
   background-size: 100% 100%;
   border-radius: 50%;
-  cursor: pointer;
   transition-property: backgroundColor, width, height;
   transition-duration: 0.3s;
+  cursor: pointer !important;
 }
 
 #bubble2 {
@@ -228,6 +228,9 @@ div.tooltip:hover span:after {
 
 #dialog > .content .item .list .list-item {
   margin-bottom: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #dialog > .content .warn-images .list .list-item {
@@ -239,6 +242,17 @@ div.tooltip:hover span:after {
   border: 1px solid #e0b905;
   background-color: #685a1c;
   color: #fff;
+  cursor: pointer;
+}
+
+#dialog > .content .warn-images .list .list-item.blue {
+  border: 1px solid #029fec;
+  background-color: #105777;
+}
+
+#dialog > .content .warn-images .list .list-item.blue2 {
+  border: 1px solid #1b588f;
+  background-color: #193e5d;
 }
 
 #dialog > .content .warn-images .list .list-item img {
@@ -265,11 +279,36 @@ div.tooltip:hover span:after {
   cursor: pointer;
 }
 
-#dialog > .content .files .list .list-item:hover {
-  color: #1beaff;
-}
-
 #dialog > .content .files .list .list-item img {
   margin-right: 5px;
   vertical-align: -2px;
+}
+
+/* 图片弹窗 */
+#img-dialog {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  margin: 0;
+  display: none;
+  z-index: 10;
+}
+
+#img-dialog > .content {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#img-dialog > .content > .close {
+  width: 20px;
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  cursor: pointer;
 }
