@@ -7,10 +7,10 @@ const hotspot = (hotSpotDom, args) => {
 
   hotSpotDom.classList.add(data.cssClass);
   hotSpotDom.id = data.id;
-  hotSpotDom.setAttribute("data-url", data.imgUrl);
+  // hotSpotDom.setAttribute("data-url", data.imgUrl);
   hotSpotDom.setAttribute("data-scale", "scale");
-  hotSpotDom.setAttribute("data-name", data.imgName);
-  hotSpotDom.setAttribute("data-className", data.bgClassName);
+  // hotSpotDom.setAttribute("data-name", data.imgName);
+  // hotSpotDom.setAttribute("data-className", data.bgClassName);
   if (num === 5) {
     setIconScale();
     setBubbleEvents();
