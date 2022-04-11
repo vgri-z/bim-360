@@ -111,7 +111,7 @@ function setIconScale() {
       } else {
         item.style.width = "55px";
         item.style.height = "55px";
-        item.style.backgroundColor = "rgba(0, 0, 0, 0.2)";
+        item.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
         hotSpotDoms[index].setAttribute("data-flag", "scale");
       }
     }, 1000);
