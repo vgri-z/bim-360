@@ -11,7 +11,7 @@ const hotspot = (hotSpotDom, args) => {
   hotSpotDom.setAttribute("data-scale", "scale");
   // hotSpotDom.setAttribute("data-name", data.imgName);
   // hotSpotDom.setAttribute("data-className", data.bgClassName);
-  if (num === 5) {
+  if (num === 6) {
     setIconScale();
     setBubbleEvents();
   }
@@ -26,44 +26,16 @@ pannellum.viewer("panorama", {
   hotSpots: [
     {
       pitch: 12,
-      yaw: 38,
+      yaw: 44,
       cssClass: "hotspot",
       createTooltipFunc: hotspot,
       createTooltipArgs: {
         id: "bubble1",
-        title: "卸料口",
+        title: "垃圾坑",
         cssClass: "tooltip",
         imgUrl: "./assets/xieliao-warn.png",
         imgName: "卸料门检修作业风险告知卡",
         bgClassName: "blue",
-      },
-    },
-    {
-      pitch: 9,
-      yaw: 94,
-      cssClass: "hotspot",
-      createTooltipFunc: hotspot,
-      createTooltipArgs: {
-        id: "bubble2",
-        title: "安全警示",
-        cssClass: "tooltip",
-        imgUrl: "./assets/ydqt-warn.png",
-        imgName: "硫化氢职业危害警示标识和告知卡",
-        bgClassName: "",
-      },
-    },
-    {
-      pitch: 11,
-      yaw: 274,
-      cssClass: "hotspot",
-      createTooltipFunc: hotspot,
-      createTooltipArgs: {
-        id: "bubble3",
-        title: "墙",
-        cssClass: "tooltip",
-        imgUrl: "./assets/ydqt-warn.png",
-        imgName: "硫化氢职业危害警示标识和告知卡",
-        bgClassName: "",
       },
     },
     {
@@ -72,8 +44,8 @@ pannellum.viewer("panorama", {
       cssClass: "hotspot",
       createTooltipFunc: hotspot,
       createTooltipArgs: {
-        id: "bubble4",
-        title: "维修车间",
+        id: "bubble2",
+        title: "垃圾吊抓斗",
         cssClass: "tooltip",
         imgUrl: "./assets/ljdz-warn.png",
         imgName: "垃圾吊抓斗掩埋抢修安全风险点告知牌",
@@ -81,12 +53,54 @@ pannellum.viewer("panorama", {
       },
     },
     {
-      pitch: 16,
-      yaw: 383,
+      pitch: 2,
+      yaw: 50,
+      cssClass: "hotspot",
+      createTooltipFunc: hotspot,
+      createTooltipArgs: {
+        id: "bubble3",
+        title: "垃圾运输车",
+        cssClass: "tooltip",
+        imgUrl: "./assets/ydqt-warn.png",
+        imgName: "硫化氢职业危害警示标识和告知卡",
+        bgClassName: "",
+      },
+    },
+    {
+      pitch: 20,
+      yaw: 195,
+      cssClass: "hotspot",
+      createTooltipFunc: hotspot,
+      createTooltipArgs: {
+        id: "bubble4",
+        title: "快速卷帘门",
+        cssClass: "tooltip",
+        imgUrl: "./assets/ydqt-warn.png",
+        imgName: "硫化氢职业危害警示标识和告知卡",
+        bgClassName: "",
+      },
+    },
+    {
+      pitch: 9,
+      yaw: 280,
       cssClass: "hotspot",
       createTooltipFunc: hotspot,
       createTooltipArgs: {
         id: "bubble5",
+        title: "卸料大厅",
+        cssClass: "tooltip",
+        imgUrl: "./assets/xlmzh-warn.png",
+        imgName: "",
+        bgClassName: "blue",
+      },
+    },
+    {
+      pitch: 10,
+      yaw: 383,
+      cssClass: "hotspot",
+      createTooltipFunc: hotspot,
+      createTooltipArgs: {
+        id: "bubble6",
         title: "卸料门",
         cssClass: "tooltip",
         imgUrl: "./assets/xlmzh-warn.png",
@@ -104,14 +118,14 @@ function setIconScale() {
     setInterval(() => {
       let flag = item.getAttribute("data-flag");
       if (flag === "scale") {
-        item.style.width = "50px";
-        item.style.height = "50px";
-        item.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
+        item.style.width = "176px";
+        item.style.height = "46px";
+        // item.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
         hotSpotDoms[index].setAttribute("data-flag", "");
       } else {
-        item.style.width = "55px";
-        item.style.height = "55px";
-        item.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+        item.style.width = "186px";
+        item.style.height = "49px";
+        // item.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
         hotSpotDoms[index].setAttribute("data-flag", "scale");
       }
     }, 1000);
@@ -120,17 +134,15 @@ function setIconScale() {
 
 // 弹窗交互(气泡点击)
 const dialogEl = document.getElementById("dialog");
-// const warnImgEl = document.getElementsByClassName("warn-images")[0];
 const warnUlEl = document.querySelector(".warn-images > .list > ul");
-// const warnItemEls = warnUlEl.getElementsByClassName("list-item");
+const warnTitleEl = document.querySelector(".warn-images > .title");
 let warnItemEls = null;
-// <li class="list-item"><img src="./assets/warn3.png" alt="" /> <span class="name">告示牌</span></li>
 function setBubbleEvents() {
   const hotSpotDoms = document.getElementById("panorama").getElementsByClassName("hotspot");
   Array.from(hotSpotDoms).forEach((item, index) => {
     item.addEventListener("click", function () {
       let htmlStr = "";
-      for (let item of imgConfigInfos1[index]) {
+      for (let item of imgConfigInfos[index]) {
         htmlStr += `
         <li class="list-item ${item.bgClassName}" onclick="javascript:listItemClick('${item.imgUrl}')">
           <img src="./assets/warn3.png" alt="" />
@@ -140,6 +152,7 @@ function setBubbleEvents() {
       }
       warnUlEl.innerHTML = htmlStr;
       warnItemEls = warnUlEl.getElementsByClassName("list-item");
+      warnTitleEl.innerHTML = imgConfigInfos[index][0].name;
       dialogEl.style.display = "block";
     });
   });
@@ -195,7 +208,7 @@ Array.from(menuItemEls).forEach((item, index) => {
   item.addEventListener("click", function (e) {
     e.stopPropagation();
     let htmlStr = "";
-    for (let item of imgConfigInfos2[index]) {
+    for (let item of imgConfigInfos[index]) {
       htmlStr += `
         <li class="list-item ${item.bgClassName}" onclick="javascript:listItemClick('${item.imgUrl}')">
           <img src="./assets/warn3.png" alt="" />
@@ -205,6 +218,7 @@ Array.from(menuItemEls).forEach((item, index) => {
     }
     warnUlEl.innerHTML = htmlStr;
     warnItemEls = warnUlEl.getElementsByClassName("list-item");
+    warnTitleEl.innerHTML = imgConfigInfos[index][0].name;
     dialogEl.style.display = "block";
   });
   item.addEventListener("mouseenter", function (e) {
@@ -227,8 +241,10 @@ Array.from(menuItemEls).forEach((item, index) => {
 //   });
 // });
 function listItemClick(e) {
-  dialogImgEl.setAttribute("src", e);
-  imgDialogEl.style.display = "block";
+  if (e) {
+    dialogImgEl.setAttribute("src", e);
+    imgDialogEl.style.display = "block";
+  }
 }
 
 // 案例文件

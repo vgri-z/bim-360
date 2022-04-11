@@ -3,36 +3,22 @@
   margin: 0;
 }
 
-/* 整个滚动条 */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
   background-color: #f5f5f5;
 }
-/* 滚动条上的按钮 (上下箭头). */
 ::-webkit-scrollbar-button {
   background-color: #393a3b;
-  /* border-radius: 50px; */
   height: 0px;
   width: 0px;
 }
-/* 滚动条上的滚动滑块. */
 ::-webkit-scrollbar-thumb {
   background-color: #fff;
-  /* border-radius: 50px; */
 }
-/*  滚动条轨道. */
-/* ::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 142, 255, 1);
-  box-shadow: inset 0 0 6px rgba(0, 142, 255, 1, 1);
-  background-color: #f5f5f5;
-} */
-/* 滚动条没有滑块的轨道部分 */
 ::-webkit-scrollbar-track-piece {
-  /* background-color: rgba(255, 255, 0, 0.43); */
   background-color: #393a3b;
 }
-/* 当同时有垂直滚动条和水平滚动条时交汇的部分. */
 ::-webkit-scrollbar-corner {
   background: transparent;
 }
@@ -47,28 +33,31 @@ ul {
 }
 
 .hotspot {
-  height: 50px;
-  width: 50px;
-  background: url("./assets/bubble2.png") no-repeat;
-  background-color: rgba(0, 0, 0, 0.8);
+  height: 46px;
+  width: 176px;
+  background: url("./assets/warn4.png") no-repeat;
+  /* background-color: rgba(0, 0, 0, 0.8); */
   background-size: 100% 100%;
-  border-radius: 50%;
+  /* border-radius: 50%; */
   transition-property: backgroundColor, width, height;
   transition-duration: 0.3s;
   cursor: pointer !important;
 }
 
 #bubble2 {
-  background-image: url("./assets/bubble3.png");
+  background-image: url("./assets/warn4.png");
 }
 #bubble3 {
-  background-image: url("./assets/bubble3.png");
+  background-image: url("./assets/warn4.png");
 }
 #bubble4 {
-  background-image: url("./assets/bubble3.png");
+  background-image: url("./assets/warn4.png");
 }
 #bubble5 {
-  background-image: url("./assets/bubble4.png");
+  background-image: url("./assets/warn4.png");
+}
+#bubble6 {
+  background-image: url("./assets/warn4.png");
 }
 
 div.tooltip span {
@@ -299,6 +288,8 @@ div.tooltip:hover span:after {
 }
 
 #img-dialog > .content {
+  width: 35%;
+  height: 80%;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -308,7 +299,16 @@ div.tooltip:hover span:after {
 #img-dialog > .content > .close {
   width: 20px;
   position: absolute;
-  right: 15px;
+  right: 10px;
   top: 10px;
   cursor: pointer;
+  z-index: 10;
+}
+
+#img-dialog > .content > .img {
+  width: 100%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
