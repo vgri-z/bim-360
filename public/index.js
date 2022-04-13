@@ -253,9 +253,13 @@ const fileItemEls = files.getElementsByClassName("list-item");
 Array.from(fileItemEls).forEach((item) => {
   // console.log(item);
   const imgEl = item.getElementsByTagName("img")[0];
-  item.addEventListener("click", function () {
+  item.addEventListener("click", function (event) {
     event.stopPropagation();
-    window.open("./assets/事故演示.pdf");
+    if (window.utils && window.utils.loadPdf) {
+      window.utils.loadPdf("./assets/事故演示.pdf");
+    } else {
+      window.open("./assets/事故演示.pdf");
+    }
   });
   item.addEventListener("mouseenter", function () {
     item.style.color = "#1beaff";
