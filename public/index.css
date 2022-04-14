@@ -228,19 +228,24 @@ div.tooltip:hover span:after {
   line-height: 40px;
   padding-left: 15px;
   box-sizing: border-box;
-  border: 1px solid #e0b905;
-  background-color: #685a1c;
+  border: 2px solid #f3c706;
+  background-color: #8d7a27;
   color: #fff;
   cursor: pointer;
 }
 
+#dialog > .content .warn-images .list .list-item.forbid {
+  color: #aaa;
+  cursor: not-allowed;
+}
+
 #dialog > .content .warn-images .list .list-item.blue {
-  border: 1px solid #029fec;
+  border: 2px solid #029fec;
   background-color: #105777;
 }
 
 #dialog > .content .warn-images .list .list-item.blue2 {
-  border: 1px solid #1b588f;
+  border: 2px solid #1b588f;
   background-color: #193e5d;
 }
 

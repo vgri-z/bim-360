@@ -17,12 +17,55 @@ const hotspot = (hotSpotDom, args) => {
   }
 };
 
-pannellum.viewer("panorama", {
+// 视角
+const angels = [
+  {
+    title: "垃圾坑",
+    hfov: 30,
+    pitch: 5,
+    yaw: 45,
+  },
+  {
+    title: "垃圾吊抓斗",
+    hfov: 40,
+    pitch: 0,
+    yaw: -40,
+  },
+  {
+    title: "垃圾运输车",
+    hfov: 40,
+    pitch: 0,
+    yaw: 70,
+  },
+  {
+    title: "快速卷帘门",
+    hfov: 40,
+    pitch: 10,
+    yaw: -175,
+  },
+  {
+    title: "卸料大厅",
+    hfov: 200,
+    pitch: 0,
+    yaw: 90,
+  },
+  {
+    title: "卸料门",
+    hfov: 40,
+    pitch: 10,
+    yaw: 20,
+  },
+];
+
+const panoramaObj = pannellum.viewer("panorama", {
   type: "equirectangular",
   panorama: "./assets/360.png",
   autoLoad: true,
   autoRotate: 0, // 为0停止自动旋转
   stopAutoRotate: true,
+  // hfov: 200,
+  // pitch: 0,
+  // yaw: 90,
   hotSpots: [
     {
       pitch: 12,
@@ -34,8 +77,6 @@ pannellum.viewer("panorama", {
         title: "垃圾坑",
         cssClass: "tooltip",
         imgUrl: "./assets/xieliao-warn.png",
-        imgName: "卸料门检修作业风险告知卡",
-        bgClassName: "blue",
       },
     },
     {
@@ -48,8 +89,6 @@ pannellum.viewer("panorama", {
         title: "垃圾吊抓斗",
         cssClass: "tooltip",
         imgUrl: "./assets/ljdz-warn.png",
-        imgName: "垃圾吊抓斗掩埋抢修安全风险点告知牌",
-        bgClassName: "",
       },
     },
     {
@@ -62,8 +101,6 @@ pannellum.viewer("panorama", {
         title: "垃圾运输车",
         cssClass: "tooltip",
         imgUrl: "./assets/ydqt-warn.png",
-        imgName: "硫化氢职业危害警示标识和告知卡",
-        bgClassName: "",
       },
     },
     {
@@ -76,8 +113,6 @@ pannellum.viewer("panorama", {
         title: "快速卷帘门",
         cssClass: "tooltip",
         imgUrl: "./assets/ydqt-warn.png",
-        imgName: "硫化氢职业危害警示标识和告知卡",
-        bgClassName: "",
       },
     },
     {
@@ -90,8 +125,6 @@ pannellum.viewer("panorama", {
         title: "卸料大厅",
         cssClass: "tooltip",
         imgUrl: "./assets/xlmzh-warn.png",
-        imgName: "",
-        bgClassName: "blue",
       },
     },
     {
@@ -104,12 +137,17 @@ pannellum.viewer("panorama", {
         title: "卸料门",
         cssClass: "tooltip",
         imgUrl: "./assets/xlmzh-warn.png",
-        imgName: "",
-        bgClassName: "blue",
       },
     },
   ],
 });
+
+// 设置视角
+function setViewport(viewport) {
+  panoramaObj.setYaw(viewport.yaw);
+  panoramaObj.setHfov(viewport.hfov);
+  panoramaObj.setPitch(viewport.pitch);
+}
 
 // 气泡动画
 function setIconScale() {
@@ -135,6 +173,7 @@ function setIconScale() {
 // 弹窗交互(气泡点击)
 const dialogEl = document.getElementById("dialog");
 const warnUlEl = document.querySelector(".warn-images > .list > ul");
+const videoUlEl = document.querySelector(".videos > .list > ul");
 const warnTitleEl = document.querySelector(".warn-images > .title");
 let warnItemEls = null;
 function setBubbleEvents() {
@@ -149,27 +188,21 @@ function setBubbleEvents() {
           <span class="name">${item.imgName}</span>
         </li>
         `;
+        if (item.videoUrl) {
+          console.log(item.videoUrl);
+          videoUlEl.innerHTML = `<li class="list-item">
+            <video src="${item.videoUrl}" controls muted></video>
+          </li>`;
+        }
       }
       warnUlEl.innerHTML = htmlStr;
       warnItemEls = warnUlEl.getElementsByClassName("list-item");
       warnTitleEl.innerHTML = imgConfigInfos[index][0].name;
+      setViewport(angels[index]);
       dialogEl.style.display = "block";
     });
   });
 }
-
-// document.getElementById("panorama").addEventListener("click", function (e) {
-//   const target = e.target;
-//   if (Array.from(target.classList).indexOf("hotspot") !== -1) {
-//     dialogEl.style.display = "block";
-//     const imgUrl = target.getAttribute("data-url");
-//     const warnName = target.getAttribute("data-name");
-//     const bgClassName = target.getAttribute("data-className");
-//     const imgEl = dialogEl.getElementsByClassName("content-img")[0];
-//     // imgDialogEl.style.display = "block";
-//     // imgEl.setAttribute("src", imgUrl);
-//   }
-// });
 
 // 关闭弹窗
 function closeDialog() {
@@ -209,16 +242,27 @@ Array.from(menuItemEls).forEach((item, index) => {
     e.stopPropagation();
     let htmlStr = "";
     for (let item of imgConfigInfos[index]) {
+      // 添加图片列表
       htmlStr += `
         <li class="list-item ${item.bgClassName}" onclick="javascript:listItemClick('${item.imgUrl}')">
           <img src="./assets/warn3.png" alt="" />
           <span class="name">${item.imgName}</span>
         </li>
         `;
+      // 添加视频
+      if (item.videoUrl) {
+        console.log(item.videoUrl);
+        videoUlEl.innerHTML = `<li class="list-item">
+            <video src="${item.videoUrl}" controls muted></video>
+          </li>`;
+      } else {
+        videoUlEl.innerHTML = `<li class="list-item" style='color: #fff; text-align: center'> <h3>暂无视频</h3> </li>`;
+      }
     }
     warnUlEl.innerHTML = htmlStr;
     warnItemEls = warnUlEl.getElementsByClassName("list-item");
     warnTitleEl.innerHTML = imgConfigInfos[index][0].name;
+    setViewport(angels[index]);
     dialogEl.style.display = "block";
   });
   item.addEventListener("mouseenter", function (e) {
@@ -250,17 +294,19 @@ function listItemClick(e) {
 // 案例文件
 const files = document.getElementsByClassName("files")[0];
 const fileItemEls = files.getElementsByClassName("list-item");
-Array.from(fileItemEls).forEach((item) => {
+Array.from(fileItemEls).forEach((item, index) => {
   // console.log(item);
   const imgEl = item.getElementsByTagName("img")[0];
-  item.addEventListener("click", function (event) {
-    event.stopPropagation();
-    if (window.utils && window.utils.loadPdf) {
-      window.utils.loadPdf("./assets/事故演示.pdf");
-    } else {
-      window.open("./assets/事故演示.pdf");
-    }
-  });
+  if (index === 0) {
+    item.addEventListener("click", function (event) {
+      event.stopPropagation();
+      if (window.utils && window.utils.loadPdf) {
+        window.utils.loadPdf("./assets/事故演示.pdf");
+      } else {
+        window.open("./assets/事故演示.pdf");
+      }
+    });
+  }
   item.addEventListener("mouseenter", function () {
     item.style.color = "#1beaff";
     imgEl.setAttribute("src", "./assets/pdf-icon-active.png");
