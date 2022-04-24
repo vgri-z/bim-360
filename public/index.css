@@ -8,17 +8,21 @@
   height: 10px;
   background-color: #f5f5f5;
 }
+
 ::-webkit-scrollbar-button {
   background-color: #393a3b;
   height: 0px;
   width: 0px;
 }
+
 ::-webkit-scrollbar-thumb {
   background-color: #fff;
 }
+
 ::-webkit-scrollbar-track-piece {
   background-color: #393a3b;
 }
+
 ::-webkit-scrollbar-corner {
   background: transparent;
 }
@@ -35,7 +39,7 @@ ul {
 .hotspot {
   height: 46px;
   width: 176px;
-  background: url("./assets/warn4.png") no-repeat;
+  background: url("./assets/warn6.png") no-repeat;
   /* background-color: rgba(0, 0, 0, 0.8); */
   background-size: 100% 100%;
   /* border-radius: 50%; */
@@ -45,19 +49,23 @@ ul {
 }
 
 #bubble2 {
-  background-image: url("./assets/warn4.png");
+  background-image: url("./assets/warn7.png");
 }
+
 #bubble3 {
-  background-image: url("./assets/warn4.png");
+  background-image: url("./assets/warn8.png");
 }
+
 #bubble4 {
-  background-image: url("./assets/warn4.png");
+  background-image: url("./assets/warn9.png");
 }
+
 #bubble5 {
-  background-image: url("./assets/warn4.png");
+  background-image: url("./assets/warn10.png");
 }
+
 #bubble6 {
-  background-image: url("./assets/warn4.png");
+  background-image: url("./assets/warn11.png");
 }
 
 div.tooltip span {
@@ -113,7 +121,7 @@ div.tooltip:hover span:after {
   cursor: pointer;
 }
 
-.navs .nav > img {
+.navs .nav>img {
   position: absolute;
   right: 20px;
   top: 50%;
@@ -170,7 +178,7 @@ div.tooltip:hover span:after {
   width: 600px;
 } */
 
-#dialog > .close {
+#dialog>.close {
   width: 30px;
   position: absolute;
   right: 10px;
@@ -178,25 +186,26 @@ div.tooltip:hover span:after {
   cursor: pointer;
 }
 
-#dialog > .content {
+#dialog>.content {
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: space-between;
 }
 
-#dialog > .content .item {
-  flex: 1;
+#dialog>.content .item {
+  /* flex: 1; */
+  width: 33%;
   margin-right: 10px;
   display: flex;
   flex-direction: column;
 }
 
-#dialog > .content .item:last-child {
+#dialog>.content .item:last-child {
   margin-right: 0;
 }
 
-#dialog > .content .item .title {
+#dialog>.content .item .title {
   width: 100%;
   height: 40px;
   background-color: #1beaff;
@@ -205,7 +214,7 @@ div.tooltip:hover span:after {
   margin-bottom: 10px;
 }
 
-#dialog > .content .item .list {
+#dialog>.content .item .list {
   width: 100%;
   flex: 1;
   border: 1px solid #808487;
@@ -215,18 +224,23 @@ div.tooltip:hover span:after {
   overflow: auto;
 }
 
-#dialog > .content .item .list .list-item {
+#dialog>.content .item .list .list-item {
   margin-bottom: 10px;
+}
+
+#dialog>.content .item .list .list-item>span {
+  display: inline-block;
+  width: 75%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-#dialog > .content .warn-images .list .list-item {
+#dialog>.content .warn-images .list .list-item {
   width: 100%;
   height: 40px;
   line-height: 40px;
-  padding-left: 15px;
+  padding-left: 12px;
   box-sizing: border-box;
   border: 2px solid #f3c706;
   background-color: #8d7a27;
@@ -234,48 +248,127 @@ div.tooltip:hover span:after {
   cursor: pointer;
 }
 
-#dialog > .content .warn-images .list .list-item.forbid {
+#dialog>.content .warn-images .list .list-item.forbid {
   color: #aaa;
   cursor: not-allowed;
 }
 
-#dialog > .content .warn-images .list .list-item.blue {
+#dialog>.content .warn-images .list .list-item.blue {
   border: 2px solid #029fec;
   background-color: #105777;
 }
 
-#dialog > .content .warn-images .list .list-item.blue2 {
+#dialog>.content .warn-images .list .list-item.blue2 {
   border: 2px solid #1b588f;
   background-color: #193e5d;
 }
 
-#dialog > .content .warn-images .list .list-item img {
+#dialog>.content .warn-images .list .list-item.yellow.active {
+  color: #000;
+  font-weight: bold;
+  border: 2px solid #f3c706;
+  background-color: #f3c706;
+  position: relative;
+}
+
+/* #dialog>.content .warn-images .list .list-item.yellow.active */
+
+#dialog>.content .warn-images .list .list-item.blue.active {
+  color: #000;
+  font-weight: bold;
+  border: 2px solid #029fec;
+  background-color: #029fec;
+  position: relative;
+}
+
+#dialog>.content .warn-images .list .list-item.blue2.active {
+  color: #000;
+  font-weight: bold;
+  border: 2px solid #1b588f;
+  background-color: #1b588f;
+  position: relative;
+}
+
+#dialog>.content .warn-images .list .list-item.yellow.active::after,
+#dialog>.content .warn-images .list .list-item.blue.active::after,
+#dialog>.content .warn-images .list .list-item.blue2.active::after {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: #f3c706;
+  position: absolute;
+  right: -3px;
+  top: 50%;
+  transform: rotate(45deg) translateY(-50%);
+}
+
+#dialog>.content .warn-images .list .list-item.blue.active::after {
+  background-color: #029fec;
+}
+
+#dialog>.content .warn-images .list .list-item.blue2.active::after {
+  background-color: #1b588f;
+}
+
+#dialog>.content .warn-images .list .list-item img {
   margin-right: 5px;
-  vertical-align: -2px;
+  vertical-align: 12px;
 }
 
-#dialog > .content .videos .list .list-item {
+/* 具体内容 */
+#dialog>.content .summary .list .list-item .item-title {
+  height: 35px;
   width: 100%;
+  line-height: 35px;
+  background: url('./assets/content_bg.png') no-repeat;
+  background-size: 100% 100%;
+  color: white;
+  text-align: center;
 }
 
-#dialog > .content .videos .list .list-item video {
-  width: 100%;
+#dialog>.content .summary .list .list-item .context {
+  color: #fff;
+  margin: 10px 0;
+  font-size: 14px;
 }
 
-#dialog > .content .files .list .list-item {
+#dialog>.content .summary .list .list-item .context .context-item {
+  padding: 5px 0;
+  border-bottom: 1px solid #3c3836;
+}
+
+#dialog>.content .summary .list .list-item .context .context-item:first-child {
+  padding-top: 0px;
+}
+
+#dialog>.content .summary .list .list-item .context .context-item .way-title {
+  color: #1beaff;
+}
+
+/* 视频/案例 */
+#dialog>.content .files .list .cases .list-item {
   width: 100%;
   height: 40px;
   line-height: 40px;
-  padding-left: 15px;
+  padding-left: 12px;
   box-sizing: border-box;
   border-bottom: 1px solid #454547;
   color: #fff;
   cursor: pointer;
 }
 
-#dialog > .content .files .list .list-item img {
+#dialog>.content .files .list .cases .list-item img {
   margin-right: 5px;
-  vertical-align: -2px;
+  vertical-align: 12px;
+}
+
+#dialog>.content .files .list .videos .list-item {
+  width: 100%;
+}
+
+#dialog>.content .files .list .videos .list-item video {
+  width: 100%;
 }
 
 /* 图片弹窗 */
@@ -292,7 +385,7 @@ div.tooltip:hover span:after {
   z-index: 10;
 }
 
-#img-dialog > .content {
+#img-dialog>.content {
   width: 35%;
   height: 80%;
   position: absolute;
@@ -301,7 +394,7 @@ div.tooltip:hover span:after {
   transform: translate(-50%, -50%);
 }
 
-#img-dialog > .content > .close {
+#img-dialog>.content>.close {
   width: 20px;
   position: absolute;
   right: 10px;
@@ -310,7 +403,7 @@ div.tooltip:hover span:after {
   z-index: 10;
 }
 
-#img-dialog > .content > .img {
+#img-dialog>.content>.img {
   width: 100%;
   position: absolute;
   left: 50%;

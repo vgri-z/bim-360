@@ -1,89 +1,104 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>垃圾发电</title>
-    <link rel="icon" href="./assets/app.ico" />
-    <link rel="stylesheet" href="./index.css" />
-    <link rel="stylesheet" href="./libs/pannellum.min.css" />
-    <script type="text/javascript" src="./libs/pannellum.min.js"></script>
-    <style></style>
-  </head>
 
-  <body>
-    <div id="panorama"></div>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>垃圾发电</title>
+  <link rel="icon" href="./assets/app.ico" />
+  <link rel="stylesheet" href="./index.css" />
+  <link rel="stylesheet" href="./libs/pannellum.min.css" />
+  <script type="text/javascript" src="./libs/pannellum.min.js"></script>
+  <style></style>
+</head>
 
-    <div class="navs">
-      <div class="nav left active">
-        卸料大厅
-        <ul class="items">
-          <li class="item">坑圾坑 <img class="warn-img" src="./assets/warn2.png" alt="" /></li>
-          <li class="item">垃圾吊抓斗 <img class="warn-img" src="./assets/warn2.png" alt="" /></li>
-          <li class="item">垃圾运输车 <img class="warn-img" src="./assets/warn2.png" alt="" /></li>
-          <li class="item">快速卷帘门 <img class="warn-img" src="./assets/warn2.png" alt="" /></li>
-          <li class="item">卸料大厅 <img class="warn-img" src="./assets/warn2.png" alt="" /></li>
-          <li class="item">卸料门 <img class="warn-img" src="./assets/warn2.png" alt="" /></li>
-        </ul>
-        <img class="arrow-img" src="./assets/arrow_down.png" alt="" />
-      </div>
+<body>
+  <div id="panorama"></div>
+
+  <div class="navs">
+    <div class="nav left active">
+      卸料大厅
+      <ul class="items">
+        <li class="item">坑圾坑 <img class="warn-img" src="./assets/warn2.png" alt="" /></li>
+        <li class="item">垃圾吊抓斗 <img class="warn-img" src="./assets/warn2.png" alt="" /></li>
+        <li class="item">垃圾运输车 <img class="warn-img" src="./assets/warn2.png" alt="" /></li>
+        <li class="item">快速卷帘门 <img class="warn-img" src="./assets/warn2.png" alt="" /></li>
+        <li class="item">卸料大厅 <img class="warn-img" src="./assets/warn2.png" alt="" /></li>
+        <li class="item">卸料门 <img class="warn-img" src="./assets/warn2.png" alt="" /></li>
+      </ul>
+      <img class="arrow-img" src="./assets/arrow_down.png" alt="" />
     </div>
+  </div>
 
-    <div id="dialog">
-      <img class="close" onclick="closeDialog()" src="./assets/close.png" alt="" />
-      <!-- <img class="content-img" src="./assets/xieliao-warn.png" alt="" /> -->
-      <div class="content">
-        <div class="item warn-images">
-          <h3 class="title">告示牌</h3>
-          <div class="list">
-            <ul>
-              <!-- <li class="list-item"><img src="./assets/warn3.png" alt="" /> <span class="name">告示牌</span></li> -->
-            </ul>
-          </div>
-        </div>
-        <div class="item videos">
-          <h3 class="title">安全事故</h3>
-          <div class="list">
-            <ul>
-              <li class="list-item">
-                <video src="./assets/video.mp4" controls muted></video>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="item files">
-          <h3 class="title">案例文件</h3>
-          <div class="list">
-            <ul>
-              <li class="list-item"><img src="./assets/pdf-icon.png" alt="" /> 生产安全事故案例</li>
-              <li class="list-item"><img src="./assets/pdf-icon.png" alt="" /> 暂无案例</li>
-              <li class="list-item"><img src="./assets/pdf-icon.png" alt="" /> 暂无案例</li>
-              <li class="list-item"><img src="./assets/pdf-icon.png" alt="" /> 暂无案例</li>
-              <li class="list-item"><img src="./assets/pdf-icon.png" alt="" /> 暂无案例</li>
-              <li class="list-item"><img src="./assets/pdf-icon.png" alt="" /> 暂无案例</li>
-              <li class="list-item"><img src="./assets/pdf-icon.png" alt="" /> 暂无案例</li>
-              <li class="list-item"><img src="./assets/pdf-icon.png" alt="" /> 暂无案例</li>
-              <li class="list-item"><img src="./assets/pdf-icon.png" alt="" /> 暂无案例</li>
-              <li class="list-item"><img src="./assets/pdf-icon.png" alt="" /> 暂无案例</li>
-              <li class="list-item"><img src="./assets/pdf-icon.png" alt="" /> 暂无案例</li>
-              <li class="list-item"><img src="./assets/pdf-icon.png" alt="" /> 暂无案例</li>
-              <li class="list-item"><img src="./assets/pdf-icon.png" alt="" /> 暂无案例</li>
-              <li class="list-item"><img src="./assets/pdf-icon.png" alt="" /> 暂无案例</li>
-            </ul>
-          </div>
+  <div id="dialog">
+    <img class="close" onclick="closeDialog()" src="./assets/close.png" alt="" />
+    <!-- <img class="content-img" src="./assets/xieliao-warn.png" alt="" /> -->
+    <div class="content">
+      <div class="item warn-images">
+        <h3 class="title">告示牌</h3>
+        <div class="list">
+          <ul>
+            <!-- <li class="list-item"><img src="./assets/warn3.png" alt="" /> <span class="name">告示牌</span></li> -->
+          </ul>
         </div>
       </div>
-    </div>
-
-    <!-- 图片弹窗 -->
-    <div id="img-dialog">
-      <div class="content">
-        <!-- <img class="close" onclick="closeImgDialog()" src="./assets/close.png" alt="" /> -->
-        <img class="img" onclick="closeImgDialog()" src="./assets/xieliao-warn.png" alt="" />
+      <div class="item summary">
+        <h3 class="title">具体内容</h3>
+        <div class="list">
+          <!-- 可能发生的事故类型及结后果 -->
+          <!-- <div class="possible list-item">
+            <h4 class="item-title">可能发生的事故类型及结后果</h4>
+            <div class="context">
+              中毒窒息、高空坠落、火灾
+            </div>
+          </div> -->
+          <!-- 现场控制措施 -->
+          <!-- <div class="ctrl-ways list-item">
+            <h4 class="item-title">现场控制措施</h4>
+            <div class="context">
+              <div class="context-item"> <span class="way-title">工程控制措施：</span> 消防水炮、气体检测仪正常运行且满足防爆要求</div>
+              <div class="context-item"> <span class="way-title">管理措施：</span> 1.定期对消防水炮检测；2.定期对气体检测仪校准与维护；3.垃圾坑内的各防护栏、盖板等定期防腐刷漆</div>
+              <div class="context-item"> <span class="way-title">培训教育措施：</span> 1.消防设施设备培训；2.有限空间操作规程培训</div>
+              <div class="context-item"> <span class="way-title">个体防护：</span> 安全帽、防毒口罩、防护服</div>
+              <div class="context-item"> <span class="way-title">应急措施：</span> 正压式呼吸器，心肺复苏，应急电话</div>
+            </div>
+          </div> -->
+          <!-- 建议新增（改进）措施 -->
+          <!-- <div class="improve list-item">
+            <h4 class="item-title">建议新增（改进）措施</h4>
+            <div class="context">
+              加强消防设施设备维护使用培训，加强生产事故应急演练培训
+            </div>
+          </div> -->
+        </div>
+      </div>
+      <div class="item files">
+        <h3 class="title">视频/案例</h3>
+        <div class="list">
+          <ul class="videos">
+            <!-- <li class="list-item">
+              <video src="./assets/video.mp4" controls muted></video>
+            </li> -->
+          </ul>
+          <ul class="cases">
+            <li style="display: none;" class="list-item"><img src="./assets/pdf-icon.png" alt="" /> <span>生产安全事故案例</span></li>
+            <!-- <li class="list-item"><img src="./assets/pdf-icon.png" alt="" /> <span>暂无案例</span></li> -->
+          </ul>
+        </div>
       </div>
     </div>
+  </div>
 
-    <script src="./libs/config.js"></script>
-    <script src="./index.js"></script>
-  </body>
+  <!-- 图片弹窗 -->
+  <div id="img-dialog">
+    <div class="content">
+      <!-- <img class="close" onclick="closeImgDialog()" src="./assets/close.png" alt="" /> -->
+      <img class="img" onclick="closeImgDialog()" src="./assets/xieliao-warn.png" alt="" />
+    </div>
+  </div>
+
+  <script src="./libs/config.js"></script>
+  <script src="./index.js"></script>
+</body>
+
 </html>

@@ -173,28 +173,58 @@ function setIconScale() {
 // 弹窗交互(气泡点击)
 const dialogEl = document.getElementById("dialog");
 const warnUlEl = document.querySelector(".warn-images > .list > ul");
-const videoUlEl = document.querySelector(".videos > .list > ul");
+const videoUlEl = document.querySelector(".files .list .videos");
 const warnTitleEl = document.querySelector(".warn-images > .title");
+const contentEl = document.querySelector(".summary .list"); // 具体内容
+const fileItemEl = document.querySelector(".files .list .cases .list-item"); //
 let warnItemEls = null;
 function setBubbleEvents() {
-  const hotSpotDoms = document.getElementById("panorama").getElementsByClassName("hotspot");
+  const hotSpotDoms = document
+    .getElementById("panorama")
+    .getElementsByClassName("hotspot");
   Array.from(hotSpotDoms).forEach((item, index) => {
     item.addEventListener("click", function () {
       let htmlStr = "";
-      for (let item of imgConfigInfos[index]) {
+      fileItemEl.style.display = "none";
+      imgConfigInfos[index].forEach((item, indey) => {
+        let content;
+
+        if (item.content) {
+          content = JSON.stringify(item.content).replace(/\"/g, "'");
+        } else {
+          content = "''";
+        }
+
+        // 默认展示第一个菜单的具体内容
         htmlStr += `
-        <li class="list-item ${item.bgClassName}" onclick="javascript:listItemClick('${item.imgUrl}')">
-          <img src="./assets/warn3.png" alt="" />
-          <span class="name">${item.imgName}</span>
-        </li>
+          <li class="list-item ${item.bgClassName} ${
+          indey === 0 ? "active" : ""
+        }" onclick="listItemClick(${content})" data-pdfUrl="${item.pdfUrl}">
+            <img src="${
+              indey === 0 ? "./assets/warn5.png" : "./assets/warn3.png"
+            }" alt="" />
+            <span class="name">${item.imgName}</span>
+          </li>
         `;
+
+        // 添加具体内容
+        if (indey === 0) {
+          appendContent(item.content);
+          if (item.pdfUrl) {
+            fileItemEl.style.display = "block";
+          }
+        }
+
+        // 判断是否添加视频
         if (item.videoUrl) {
-          console.log(item.videoUrl);
+          // console.log(item.videoUrl);
           videoUlEl.innerHTML = `<li class="list-item">
             <video src="${item.videoUrl}" controls muted></video>
           </li>`;
+        } else {
+          videoUlEl.innerHTML = `<li class="list-item" style='color: #fff; text-align: center'> <h3>暂无视频</h3> </li>`;
         }
-      }
+      });
       warnUlEl.innerHTML = htmlStr;
       warnItemEls = warnUlEl.getElementsByClassName("list-item");
       warnTitleEl.innerHTML = imgConfigInfos[index][0].name;
@@ -240,25 +270,46 @@ Array.from(menuItemEls).forEach((item, index) => {
   const imgEl = item.getElementsByClassName("warn-img")[0];
   item.addEventListener("click", function (e) {
     e.stopPropagation();
+    fileItemEl.style.display = "none";
     let htmlStr = "";
-    for (let item of imgConfigInfos[index]) {
-      // 添加图片列表
+    imgConfigInfos[index].forEach((item, indey) => {
+      let content;
+
+      if (item.content) {
+        content = JSON.stringify(item.content).replace(/\"/g, "'");
+      } else {
+        content = "''";
+      }
+
+      // 默认展示第一个菜单的具体内容
       htmlStr += `
-        <li class="list-item ${item.bgClassName}" onclick="javascript:listItemClick('${item.imgUrl}')">
-          <img src="./assets/warn3.png" alt="" />
+        <li class="list-item ${item.bgClassName} ${
+        indey === 0 ? "active" : ""
+      }" onclick="listItemClick(${content})" data-pdfUrl="${item.pdfUrl}">
+          <img src="${
+            indey === 0 ? "./assets/warn5.png" : "./assets/warn3.png"
+          }" alt="" />
           <span class="name">${item.imgName}</span>
         </li>
-        `;
-      // 添加视频
+      `;
+
+      // 添加具体内容
+      if (indey === 0) {
+        appendContent(item.content);
+        if (item.pdfUrl) {
+          fileItemEl.style.display = "block";
+        }
+      }
+
       if (item.videoUrl) {
-        console.log(item.videoUrl);
+        // console.log(item.videoUrl);
         videoUlEl.innerHTML = `<li class="list-item">
-            <video src="${item.videoUrl}" controls muted></video>
-          </li>`;
+          <video src="${item.videoUrl}" controls muted></video>
+        </li>`;
       } else {
         videoUlEl.innerHTML = `<li class="list-item" style='color: #fff; text-align: center'> <h3>暂无视频</h3> </li>`;
       }
-    }
+    });
     warnUlEl.innerHTML = htmlStr;
     warnItemEls = warnUlEl.getElementsByClassName("list-item");
     warnTitleEl.innerHTML = imgConfigInfos[index][0].name;
@@ -284,11 +335,77 @@ Array.from(menuItemEls).forEach((item, index) => {
 //     imgDialogEl.style.display = "block";
 //   });
 // });
-function listItemClick(e) {
-  if (e) {
-    dialogImgEl.setAttribute("src", e);
-    imgDialogEl.style.display = "block";
+function listItemClick(content) {
+  // console.log(content)
+  const e = window.event;
+  let target = e.target;
+
+  if (e.target.tagName !== "LI") {
+    target = target.parentNode;
   }
+
+  if (target.getAttribute("class").indexOf("forbid") !== -1) {
+    // 禁止点击
+    return;
+  } else {
+    // 移处所有菜单的active 样式类和警告图片
+    for (let item of warnUlEl.getElementsByClassName("list-item")) {
+      item.getElementsByTagName("img")[0].src = "./assets/warn3.png";
+      item.classList.remove("active");
+    }
+
+    if (target.getAttribute("data-pdfUrl")) {
+      fileItemEl.style.display = "block";
+    } else {
+      fileItemEl.style.display = "none";
+    }
+    // 为点击的菜单添加active样式类和选中警告图片
+    target.classList.add("active");
+    target.getElementsByTagName("img")[0].src = "./assets/warn5.png";
+  }
+
+  // 添加具体内容
+  appendContent(content);
+}
+
+// 添加剧体内容
+function appendContent(data) {
+  // 单引号转双引号
+  // console.log(typeof data)
+  // data = data.split("'").join('"')
+  // let content = JSON.parse(data)
+  const content = data;
+  let htmlStr = "";
+  if (content) {
+    htmlStr += `
+    <!-- 可能发生的事故类型及结后果 -->
+    <div class="possible list-item">
+      <h4 class="item-title">可能发生的事故类型及结后果</h4>
+      <div class="context">
+        ${content.possibleAccident}
+      </div>
+    </div>
+    <!-- 现场控制措施 -->
+    <div class="ctrl-ways list-item">
+      <h4 class="item-title">现场控制措施</h4>
+      <div class="context">
+        <div class="context-item"> <span class="way-title">工程控制措施：</span>  ${content.existingControlWays.engineeringControlWays}</div>
+        <div class="context-item"> <span class="way-title">管理措施：</span>  ${content.existingControlWays.manageWays}</div>
+        <div class="context-item"> <span class="way-title">培训教育措施：</span>  ${content.existingControlWays.educationWays}</div>
+        <div class="context-item"> <span class="way-title">个体防护：</span>  ${content.existingControlWays.individualProtection}</div>
+        <div class="context-item"> <span class="way-title">应急措施：</span>  ${content.existingControlWays.emergencyWays}</div>
+      </div>
+    </div>
+    <!-- 建议新增（改进）措施 -->
+    <div class="improve list-item">
+      <h4 class="item-title">建议新增（改进）措施</h4>
+      <div class="context">
+      ${content.canImproveWays}
+      </div>
+    </div>
+  `;
+  }
+  contentEl.innerHTML = htmlStr;
 }
 
 // 案例文件
