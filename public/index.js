@@ -59,7 +59,7 @@ const angels = [
 
 const panoramaObj = pannellum.viewer("panorama", {
   type: "equirectangular",
-  panorama: "./assets/360.png",
+  panorama: "./assets/360-2.png",
   autoLoad: true,
   autoRotate: 0, // 为0停止自动旋转
   stopAutoRotate: true,
@@ -179,9 +179,7 @@ const contentEl = document.querySelector(".summary .list"); // 具体内容
 const fileItemEl = document.querySelector(".files .list .cases .list-item"); //
 let warnItemEls = null;
 function setBubbleEvents() {
-  const hotSpotDoms = document
-    .getElementById("panorama")
-    .getElementsByClassName("hotspot");
+  const hotSpotDoms = document.getElementById("panorama").getElementsByClassName("hotspot");
   Array.from(hotSpotDoms).forEach((item, index) => {
     item.addEventListener("click", function () {
       let htmlStr = "";
@@ -200,9 +198,7 @@ function setBubbleEvents() {
           <li class="list-item ${item.bgClassName} ${
           indey === 0 ? "active" : ""
         }" onclick="listItemClick(${content})" data-pdfUrl="${item.pdfUrl}">
-            <img src="${
-              indey === 0 ? "./assets/warn5.png" : "./assets/warn3.png"
-            }" alt="" />
+            <img src="${indey === 0 ? "./assets/warn5.png" : "./assets/warn3.png"}" alt="" />
             <span class="name">${item.imgName}</span>
           </li>
         `;
@@ -286,9 +282,7 @@ Array.from(menuItemEls).forEach((item, index) => {
         <li class="list-item ${item.bgClassName} ${
         indey === 0 ? "active" : ""
       }" onclick="listItemClick(${content})" data-pdfUrl="${item.pdfUrl}">
-          <img src="${
-            indey === 0 ? "./assets/warn5.png" : "./assets/warn3.png"
-          }" alt="" />
+          <img src="${indey === 0 ? "./assets/warn5.png" : "./assets/warn3.png"}" alt="" />
           <span class="name">${item.imgName}</span>
         </li>
       `;
